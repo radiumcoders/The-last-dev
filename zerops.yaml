@@ -1,0 +1,60 @@
+# Build with Node.js (npm/npx), serve with Nginx.
+# The build container compiles Next.js into static
+# HTML/CSS/JS — Node.js is NOT present at runtime.
+zerops:
+  - setup: prod
+    build:
+      base: nodejs@22
+
+      # NEXT_PUBLIC_* vars are baked into the static
+      # output at build time — there is no runtime
+      # process to read env vars in static deployments.
+      envVariables:
+        NEXT_PUBLIC_APP_ENV: production
+
+      buildCommands:
+        - npm ci
+        - npm run build
+
+      # Strip 'out/' prefix — contents become the Nginx
+      # root. Requires 'output: export' in next.config.ts.
+      deployFiles:
+        - out/~
+
+      # .next/cache preserves incremental compilation
+      # state across builds — significantly speeds up
+      # subsequent deployments.
+      cache:
+        - node_modules
+        - .next/cache
+
+    run:
+      # Nginx serves the compiled assets — no Node.js
+      # at runtime.
+      base: static
+      # Built-in SPA fallback serves /index.html for all
+      # unmatched routes — no custom routing config needed
+      # for Next.js static export.
+
+  - setup: dev
+    build:
+      base: nodejs@22
+      os: ubuntu
+      buildCommands:
+        # npm install (not ci) — lock file may not exist
+        # yet in a fresh dev workspace.
+        - npm install
+      # Deploy the full working tree so the developer has
+      # source code and node_modules ready via SSH.
+      deployFiles: ./
+      cache:
+        - node_modules
+
+    run:
+      # Node.js at runtime so the developer can run
+      # 'npm run dev' or any other tooling via SSH.
+      base: nodejs@22
+      os: ubuntu
+      # Keep the container alive — developer drives via
+      # SSH, starting their own dev server manually.
+      start: zsc noop --silent
