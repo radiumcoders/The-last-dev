@@ -55,6 +55,9 @@ zerops:
       # 'npm run dev' or any other tooling via SSH.
       base: nodejs@22
       os: ubuntu
+      ports:
+        - port: 3000
+          httpSupport: true      
       # Keep the container alive — developer drives via
       # SSH, starting their own dev server manually.
       start: zsc noop --silent
