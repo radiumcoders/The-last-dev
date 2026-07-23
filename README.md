@@ -1,7 +1,7 @@
-# Next.js Hello World Recipe App
+# Next.js 16 Static Hello World Recipe App
 
 <!-- #ZEROPS_EXTRACT_START:intro# -->
-A minimal Next.js application deployed as a static export on Zerops — built with Node.js and served by Nginx, with build-time environment variable injection via `NEXT_PUBLIC_*` prefix.
+A minimal Next.js 16 application deployed as a static export on Zerops — built with Node.js and served by Nginx, with build-time environment variable injection via `NEXT_PUBLIC_*` prefix.
 Used within [Next.js Hello World recipe](https://app.zerops.io/recipes/nextjs-hello-world) for [Zerops](https://zerops.io) platform.
 <!-- #ZEROPS_EXTRACT_END:intro# -->
 

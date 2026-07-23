@@ -1,6 +1,6 @@
 # nextjs-static-hello-world-app
 
-Next.js 15 static export — `output: 'export'` produces plain HTML/CSS/JS at build time, served by nginx in prod; dev container runs `next dev` over SSH.
+Next.js 16 static export — `output: 'export'` produces plain HTML/CSS/JS at build time, served by nginx in prod; dev container runs `next dev` over SSH.
 
 ## Zerops service facts
 
