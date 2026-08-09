@@ -13,6 +13,7 @@ zerops:
         NEXT_PUBLIC_APP_ENV: production
 
       buildCommands:
+        - rm -rf .next out
         - npm ci
         - npm run build
 
@@ -21,12 +22,10 @@ zerops:
       deployFiles:
         - out/~
 
-      # .next/cache preserves incremental compilation
-      # state across builds — significantly speeds up
-      # subsequent deployments.
+      # Cache node_modules only — .next/cache from prior
+      # builds can land with permissions that break rm/build.
       cache:
         - node_modules
-        - .next/cache
 
     run:
       # Nginx serves the compiled assets — no Node.js
