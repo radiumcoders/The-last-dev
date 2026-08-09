@@ -14,7 +14,6 @@ import { StatsPanel } from '@/components/game/StatsPanel'
 import { SystemBar } from '@/components/game/SystemBar'
 import { Timeline } from '@/components/game/Timeline'
 import { gameAudio } from '@/lib/game/audio'
-import { toggleFullscreen } from '@/lib/game/fullscreen'
 import { haptic } from '@/lib/game/haptics'
 import { useGameStore } from '@/lib/game/store'
 import { PHASE_META } from '@/lib/game/ux'
@@ -76,12 +75,6 @@ export function GameShell() {
         setAudioMuted(next)
         gameAudio.setMuted(next)
         if (!next) gameAudio.click()
-        return
-      }
-      if (key === 'f') {
-        e.preventDefault()
-        gameAudio.click()
-        void toggleFullscreen(document.querySelector('.crt-root'))
         return
       }
       if (key === 'enter') {

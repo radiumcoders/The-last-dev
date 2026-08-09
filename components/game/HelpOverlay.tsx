@@ -36,6 +36,14 @@ export function HelpOverlay() {
             window expires — hesitation damages the company.
           </p>
           <div className="ascii-divider">----------------</div>
+          <p className="warn-tag">MOTIVES</p>
+          {STAT_ORDER.map((key) => (
+            <div key={key} className="help-stat">
+              <span>{STAT_LABELS[key]}</span>
+              <span className="dim"> — {STAT_HINTS[key]}</span>
+            </div>
+          ))}
+          <div className="ascii-divider">----------------</div>
           <p>
             <span className="warn-tag">DESKTOP</span> 1-4 choose · L log · T
             timeline · M mute · F fullscreen · H help
@@ -44,14 +52,6 @@ export function HelpOverlay() {
             <span className="warn-tag">TOUCH</span> tap a choice to preview ·
             tap again or CONFIRM · use the bottom dock for LOG / TIME / HELP
           </p>
-          <div className="ascii-divider">----------------</div>
-          <p className="warn-tag">METRICS</p>
-          {STAT_ORDER.map((key) => (
-            <div key={key} className="help-stat">
-              <span>{STAT_LABELS[key]}</span>
-              <span className="dim"> — {STAT_HINTS[key]}</span>
-            </div>
-          ))}
           <div className="ascii-divider">----------------</div>
           <p>
             Decide with &gt;45% time left to grow a{' '}

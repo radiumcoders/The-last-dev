@@ -20,6 +20,8 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--crt-green-dim) #050805;
 }
 
 html,
@@ -33,6 +35,31 @@ body,
   color: var(--crt-green);
   font-family: var(--font-terminal), ui-monospace, SFMono-Regular, Menlo, monospace;
   overflow: hidden;
+}
+
+/* Global CRT-themed scrollbars (match app chrome) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #050805;
+  border-left: 1px solid rgba(31, 154, 63, 0.35);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #33ff66 0%, #1f9a3f 100%);
+  border: 1px solid #0a1a0e;
+  box-shadow: 0 0 6px rgba(51, 255, 102, 0.35);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #66ff99;
+}
+
+*::-webkit-scrollbar-corner {
+  background: #050805;
 }
 
 button {
@@ -974,6 +1001,34 @@ html.fx-collapse .crt-screen {
   color: var(--crt-green-dim);
 }
 
+.boot-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  min-height: 0;
+  max-width: min(42rem, 100%);
+}
+
+.boot-guide__scroll {
+  flex: 1;
+  min-height: 0;
+  max-height: min(58vh, 28rem);
+  padding-right: 0.5rem;
+  overflow-y: auto;
+}
+
+.boot-guide__title {
+  margin: 0.55rem 0 0.25rem;
+  letter-spacing: 0.1em;
+  color: var(--crt-amber);
+  text-shadow: 0 0 10px rgba(255, 176, 0, 0.4);
+}
+
+.boot-guide .boot-continue {
+  flex-shrink: 0;
+}
+
 .help-body p {
   margin: 0.35rem 0;
 }
@@ -983,49 +1038,6 @@ html.fx-collapse .crt-screen {
   font-size: 0.85rem;
 }
 
-
-/* ── CRT scrollbars ───────────────────────────── */
-.crt-scroll,
-.scroll-pane,
-.terminal-panel__body,
-.crt-content {
-  scrollbar-width: thin;
-  scrollbar-color: var(--crt-green-dim) #050805;
-}
-
-.crt-scroll::-webkit-scrollbar,
-.scroll-pane::-webkit-scrollbar,
-.terminal-panel__body::-webkit-scrollbar,
-.crt-content::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-.crt-scroll::-webkit-scrollbar-track,
-.scroll-pane::-webkit-scrollbar-track,
-.terminal-panel__body::-webkit-scrollbar-track,
-.crt-content::-webkit-scrollbar-track {
-  background: #050805;
-  border-left: 1px solid rgba(31, 154, 63, 0.35);
-}
-
-.crt-scroll::-webkit-scrollbar-thumb,
-.scroll-pane::-webkit-scrollbar-thumb,
-.terminal-panel__body::-webkit-scrollbar-thumb,
-.crt-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #33ff66 0%, #1f9a3f 100%);
-  border: 1px solid #0a1a0e;
-  box-shadow: 0 0 6px rgba(51, 255, 102, 0.35);
-}
-
-.crt-scroll::-webkit-scrollbar-thumb:hover,
-.scroll-pane::-webkit-scrollbar-thumb:hover {
-  background: #66ff99;
-}
-
-.crt-scroll::-webkit-scrollbar-corner {
-  background: #050805;
-}
 
 .touch-target {
   min-height: 48px;

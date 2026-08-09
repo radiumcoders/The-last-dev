@@ -13,7 +13,6 @@ import { useGameStore } from '@/lib/game/store'
 export function GameApp() {
   const uiPhase = useGameStore((s) => s.uiPhase)
   const restart = useGameStore((s) => s.restart)
-  const finishBoot = useGameStore((s) => s.finishBoot)
   const beginShutdown = useGameStore((s) => s.beginShutdown)
   const [audioUnlocked, setAudioUnlocked] = useState(false)
 
@@ -35,14 +34,11 @@ export function GameApp() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase()
+      // Single global F handler — GameShell must not also bind F (double-toggle flicker).
       if (key === 'f') {
         e.preventDefault()
-        void toggleFullscreen(document.querySelector('.crt-root'))
+        void toggleFullscreen()
         return
-      }
-      if (uiPhase === 'boot' && key === 'enter') {
-        const powered = document.querySelector('.boot-continue')
-        if (powered) finishBoot()
       }
       if (uiPhase === 'ending' && key === 'enter') {
         beginShutdown()
@@ -53,7 +49,7 @@ export function GameApp() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [beginShutdown, finishBoot, restart, uiPhase])
+  }, [beginShutdown, restart, uiPhase])
 
   return (
     <>

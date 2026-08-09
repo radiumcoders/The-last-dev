@@ -1,12 +1,12 @@
 'use client'
 
-function asElement(el?: Element | HTMLElement | null): HTMLElement {
-  if (el instanceof HTMLElement) return el
+/** Always target the document element so remounting `.crt-root` never drops FS. */
+function fullscreenTarget(): HTMLElement {
   return document.documentElement
 }
 
-export async function enterFullscreen(el?: Element | HTMLElement | null) {
-  const target = asElement(el)
+export async function enterFullscreen(_el?: Element | HTMLElement | null) {
+  const target = fullscreenTarget()
   if (!document.fullscreenElement && target.requestFullscreen) {
     try {
       await target.requestFullscreen()
@@ -26,9 +26,9 @@ export async function exitFullscreen() {
   }
 }
 
-export async function toggleFullscreen(el?: Element | HTMLElement | null) {
+export async function toggleFullscreen(_el?: Element | HTMLElement | null) {
   if (document.fullscreenElement) await exitFullscreen()
-  else await enterFullscreen(el)
+  else await enterFullscreen()
 }
 
 export function isFullscreen(): boolean {

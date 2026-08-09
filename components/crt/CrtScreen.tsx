@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { isFullscreen, toggleFullscreen } from '@/lib/game/fullscreen'
 
@@ -15,17 +15,17 @@ export function CrtScreen({
   poweredOff?: boolean
   intense?: boolean
 }) {
-  const rootRef = useRef<HTMLDivElement>(null)
   const [fs, setFs] = useState(false)
 
   useEffect(() => {
     const sync = () => setFs(isFullscreen())
+    sync()
     document.addEventListener('fullscreenchange', sync)
     return () => document.removeEventListener('fullscreenchange', sync)
   }, [])
 
   return (
-    <div ref={rootRef} className={cn('crt-root', className)}>
+    <div className={cn('crt-root', className)}>
       <div
         className={cn(
           'crt-bezel',
@@ -38,7 +38,7 @@ export function CrtScreen({
           <button
             type="button"
             className="crt-chrome__fs"
-            onClick={() => void toggleFullscreen(rootRef.current)}
+            onClick={() => void toggleFullscreen()}
             title="Toggle fullscreen (F)"
           >
             {fs ? '[ F ] EXIT FULLSCREEN' : '[ F ] FULLSCREEN'}
